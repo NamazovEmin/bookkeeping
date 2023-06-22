@@ -7,7 +7,7 @@ import az.namazov.bookkeeping.controller.parser.data.XlsBook;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class TinkoffXlsBook extends XlsBook<TinkoffXlsRow> {
+public class TinkoffXlsBook extends XlsBook {
 
     private final List<TinkoffXlsRow> sheet = new ArrayList<>();
 

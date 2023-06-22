@@ -14,9 +14,9 @@ import az.namazov.bookkeeping.controller.parser.XlsParser;
 import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsBook;
 import az.namazov.bookkeeping.dto.OperationDTO;
 import az.namazov.bookkeeping.entity.Operation;
-import az.namazov.bookkeeping.mapper.OperationMapper;
-import az.namazov.bookkeeping.mapper.XlsMapper;
-import az.namazov.bookkeeping.mapper.XlsMapperFabric;
+import az.namazov.bookkeeping.mapper.dto.OperationMapper;
+import az.namazov.bookkeeping.mapper.xls.XlsMapper;
+import az.namazov.bookkeeping.mapper.xls.XlsMapperFabric;
 import az.namazov.bookkeeping.service.OperationService;
 import lombok.AllArgsConstructor;
 
