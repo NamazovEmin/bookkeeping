@@ -1,5 +1,7 @@
 package az.namazov.bookkeeping.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,8 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import az.namazov.bookkeeping.controller.parser.XlsParser;
-import az.namazov.bookkeeping.dto.PaymentDTO;
-import az.namazov.bookkeeping.mapper.PaymentMapper;
+import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsBook;
+import az.namazov.bookkeeping.dto.OperationDTO;
+import az.namazov.bookkeeping.entity.Operation;
+import az.namazov.bookkeeping.mapper.OperationMapper;
+import az.namazov.bookkeeping.mapper.XlsMapper;
+import az.namazov.bookkeeping.mapper.XlsMapperFabric;
 import az.namazov.bookkeeping.service.OperationService;
 import lombok.AllArgsConstructor;
 
@@ -20,17 +26,22 @@ import lombok.AllArgsConstructor;
 public class OperationController {
 
     private final OperationService operationService;
-    private final PaymentMapper paymentMapper;
+    private final OperationMapper operationMapper;
     private final XlsParser tinkofXlsParser;
+    private final XlsMapperFabric xlsMapperFabric;
 
 
     @PostMapping
-    public ResponseEntity<PaymentDTO> save(@RequestBody PaymentDTO paymentDTO) {
-        return ResponseEntity.ok(paymentMapper.toDTO(operationService.save(paymentMapper.toEntity(paymentDTO))));
+    public ResponseEntity<OperationDTO> save(@RequestBody OperationDTO operationDTO) {
+        return ResponseEntity.ok(operationMapper.toDTO(operationService.save(operationMapper.toEntity(operationDTO))));
     }
 
     @PostMapping("/file")
     public void mapReapExcelDataToDB(@RequestParam("file") MultipartFile file) {
-       tinkofXlsParser.fromXls(file);
+        TinkoffXlsBook book = tinkofXlsParser.fromXls(file);
+        XlsMapper xlsMapper = xlsMapperFabric.getXlsMapper(book);
+        List<Operation> operations = xlsMapper.toOperationList(book);
+        operationService.saveAll(operations);
+
     }
 }

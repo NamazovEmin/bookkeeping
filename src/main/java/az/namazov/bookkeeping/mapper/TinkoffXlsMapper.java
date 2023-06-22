@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import az.namazov.bookkeeping.controller.adapter.CategoryAdapter;
-import az.namazov.bookkeeping.controller.parser.data.XlsBook;
+import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsBook;
 import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsRow;
 import az.namazov.bookkeeping.entity.Operation;
 import lombok.AllArgsConstructor;
@@ -29,7 +29,7 @@ public class TinkoffXlsMapper implements XlsMapper {
     }
 
     @Override
-    public List<Operation> toOperationList(XlsBook book) {
+    public List<Operation> toOperationList(TinkoffXlsBook book) {
         return book.getSheet().stream().map(this::toOperation).toList();
     }
 

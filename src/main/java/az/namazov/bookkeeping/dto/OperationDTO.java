@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class PaymentDTO {
+public class OperationDTO {
 
     private Date date;
 
