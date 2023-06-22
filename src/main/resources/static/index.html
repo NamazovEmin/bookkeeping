@@ -1,0 +1,72 @@
+<!doctype html>
+
+<html ng-app="bookkeeping">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+    <script src="index.js"></script>
+</head>
+
+<body>
+
+<div class="container" ng-controller="indexController">
+    <p></p>
+    <h1>Домашняя Бухгалтерия</h1>
+    <p></p>
+    <h3>Затраты</h3>
+    <p></p>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>Дата</td>
+            <td>Тип оплаты</td>
+            <td>Цена</td>
+            <td>Название</td>
+            <td>Категория</td>
+        </tr>
+        <tr>
+            <td>
+                <input class="form-control" ng-model="operation.date" type="date"
+                        aria-describedby="inputGroup-sizing-sm" style="width: 130px" >
+            </td>
+            <td >
+                <select class="form-control" ng-model="operation.type"
+                        aria-describedby="inputGroup-sizing-sm" style="width: auto" size="1"  >
+                <option value="Тиньков">Карта Тиньков</option>
+                <option value="Наличные">Наличные</option>
+            </select>
+            </td>
+            <td>
+                <input class="form-control" ng-model="operation.cost"  type="number"
+                        aria-describedby="inputGroup-sizing-sm" style="width: 130px" >
+            </td>
+            <td>
+                <input class="form-control"  ng-model="operation.name" type="text"
+                        aria-describedby="inputGroup-sizing-sm" style="">
+            </td>
+            <td>
+                <select class="form-control" ng-model="operation.category" id="category"
+                        aria-describedby="inputGroup-sizing-sm" style="width: auto" size="1" >
+                    <option value="Продукты">Продукты</option>
+                    <option value="Аптека">Аптека</option>
+                </select>
+            </td>
+            <td>
+                <button class="btn btn-primary"  ng-click="createPayment()"  >Добавить</button>
+            </td>
+        </tr>
+    </table>
+
+    <form action="http://localhost:8080/operation/file" enctype="multipart/form-data" method="post">
+        <p><input type="file" name="file" id="file" accept=".xls,.xlsx">
+            <input type="submit" value="Отправить" ></p>
+    </form>
+</div>
+</body>
+</html>
