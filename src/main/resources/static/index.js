@@ -1,22 +1,22 @@
 
 angular.module('bookkeeping', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
 
-    // $scope.createOperation = function () {
-    //     if ($scope.operation.date != null && $scope.operation.source != null && $scope.operation.cost != null &&
-    //             $scope.operation.name != null && $scope.operation.category != null)
+    $scope.createOperation = function (operation) {
+        if (operation.date != null & operation.source != null & operation.cost != null &
+                operation.details != null && operation.category != null)
                 {
-            $http.post('http://localhost:8080/operation', $scope.operation)
+            $http.post('http://localhost:8080/operation', operation)
                     .then(function() {
-                        $scope.clearPaymentFields();
+                        $scope.clearPaymentFields(operation);
                     });
-        // }
+        }
     }
 
-    $scope.clearPaymentFields = function() {
-        $scope.operation.date = null;
-        $scope.operation.source = null;
-        $scope.operation.cost = null;
-        $scope.operation.name = null;
-        $scope.operation.category = null;
+    $scope.clearPaymentFields = function(operation) {
+        operation.date = null;
+        operation.source = null;
+        operation.cost = null;
+        operation.details = null;
+        operation.category = null;
     }
 });
