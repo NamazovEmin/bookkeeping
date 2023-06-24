@@ -2,6 +2,8 @@ package az.namazov.bookkeeping.dto;
 
 import java.util.Date;
 
+import az.namazov.bookkeeping.controller.enums.Category;
+import az.namazov.bookkeeping.controller.enums.Source;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -11,11 +13,11 @@ public class OperationDTO {
 
     private Date date;
 
-    private String type;
+    private Source source;
 
     private Long cost;
 
-    private String name;
+    private String details;
 
-    private String category;
+    private Category category;
 }

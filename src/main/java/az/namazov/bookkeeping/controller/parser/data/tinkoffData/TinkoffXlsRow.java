@@ -2,6 +2,7 @@ package az.namazov.bookkeeping.controller.parser.data.tinkoffData;
 
 import java.util.Date;
 
+import az.namazov.bookkeeping.controller.enums.TinkoffCategory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +21,7 @@ public class TinkoffXlsRow {
     private double paymentSum;
     private String paymentCurrency;
     private double cashBack;
-    private String category;
+    private TinkoffCategory category;
     private int mcc;
     private String description;
     private double bonusWithCashback;

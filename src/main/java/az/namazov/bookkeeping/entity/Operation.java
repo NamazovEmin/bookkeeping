@@ -8,6 +8,7 @@ package az.namazov.bookkeeping.entity;
 import java.util.Date;
 
 import az.namazov.bookkeeping.controller.enums.Category;
+import az.namazov.bookkeeping.controller.enums.Source;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,13 +36,13 @@ public class Operation {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    @Column(name = "source", nullable = false)
+    private Source source;
 
     @Column(name = "cost", nullable = false)
     private double cost;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "details", nullable = false)
     private String details;
 
     @Column(name = "category", nullable = false)

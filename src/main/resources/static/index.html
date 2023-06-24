@@ -36,10 +36,10 @@
                         aria-describedby="inputGroup-sizing-sm" style="width: 130px" >
             </td>
             <td >
-                <select class="form-control" ng-model="operation.type"
+                <select class="form-control" ng-model="operation.source"
                         aria-describedby="inputGroup-sizing-sm" style="width: auto" size="1"  >
-                <option value="Тиньков">Карта Тиньков</option>
-                <option value="Наличные">Наличные</option>
+                <option value="TINKOFF">Карта Тиньков</option>
+                <option value="CASH">Наличные</option>
             </select>
             </td>
             <td>
@@ -47,18 +47,17 @@
                         aria-describedby="inputGroup-sizing-sm" style="width: 130px" >
             </td>
             <td>
-                <input class="form-control"  ng-model="operation.name" type="text"
+                <input class="form-control"  ng-model="operation.details" type="text"
                         aria-describedby="inputGroup-sizing-sm" style="">
             </td>
             <td>
                 <select class="form-control" ng-model="operation.category" id="category"
                         aria-describedby="inputGroup-sizing-sm" style="width: auto" size="1" >
-                    <option value="Продукты">Продукты</option>
-                    <option value="Аптека">Аптека</option>
+                    <option value="FOOD">Продукты</option>
                 </select>
             </td>
             <td>
-                <button class="btn btn-primary"  ng-click="createPayment()"  >Добавить</button>
+                <button class="btn btn-primary"  ng-click="createOperation()">Добавить</button>
             </td>
         </tr>
     </table>

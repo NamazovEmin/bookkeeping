@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2023, TopS BI LLC. All rights reserved.
- * http://www.topsbi.ru
- */
-
-/*
- * Copyright (c) 2023, TopS BI LLC. All rights reserved.
- * http://www.topsbi.ru
- */
-
 package az.namazov.bookkeeping.mapper.xls;
 
 import java.util.List;
@@ -15,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import az.namazov.bookkeeping.controller.adapter.CategoryAdapter;
+import az.namazov.bookkeeping.controller.enums.Source;
 import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsBook;
 import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsRow;
 import az.namazov.bookkeeping.entity.Operation;
@@ -29,6 +20,10 @@ public class TinkoffXlsMapper implements XlsMapper {
     @Override
     public Operation toOperation(TinkoffXlsRow row) {
         Operation operation = new Operation();
+        operation.setDate(row.getOperationDate());
+        operation.setSource(Source.TINKOFF);
+        operation.setCost(row.getOperationSum());
+        operation.setDetails(row.getDescription());
         operation.setCategory(categoryAdapter.compare(row));
         return operation;
     }

@@ -1,29 +1,20 @@
 package az.namazov.bookkeeping.controller.enums;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import az.namazov.bookkeeping.controller.adapter.CategoryAdapter;
-import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsRow;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
-public enum Category implements CategoryAdapter {
+@Getter
+public enum Category {
 
-    FOOD(List.of(Map.of("Категория", "Супермаркеты")));
+    FOOD(Map.of("Тиньков", List.of(TinkoffCategory.SUPER_MARKET.name()),
+                "Банк Развитие", List.of("sds"),
+                "Альфа-Банк", List.of("sdsd")));
 
-    private final List<Map<String, String>> compareList;
+    private final Map<String, List<String>> compareList;
 
 
-    @Override
-    public Category compare(TinkoffXlsRow row) {
-        return Arrays.stream(values()).filter(category -> {
-            String enumValue = category.compareList.get(0).get("Категория");
-            if (enumValue != null && enumValue.equals(row.getCategory())) {
-                return true;
-            }
-            return false;
-        }).findFirst().get();
-    }
 }

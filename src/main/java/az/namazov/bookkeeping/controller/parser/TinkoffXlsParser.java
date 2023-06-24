@@ -10,6 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import az.namazov.bookkeeping.controller.enums.TinkoffCategory;
 import az.namazov.bookkeeping.controller.enums.TinkoffXlsColumns;
 import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsBook;
 import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsRow;
@@ -52,7 +53,7 @@ public class TinkoffXlsParser implements XlsParser {
                 tinkoffRow.setPaymentSum(row.getCell(getIndex(TinkoffXlsColumns.PAYMENT_SUM, headRow)).getNumericCellValue());
                 tinkoffRow.setPaymentCurrency(row.getCell(getIndex(TinkoffXlsColumns.PAYMENT_CURRENCY, headRow)).getStringCellValue());
                 tinkoffRow.setCashBack(row.getCell(getIndex(TinkoffXlsColumns.CASH_BACK, headRow)).getNumericCellValue());
-                tinkoffRow.setCategory(row.getCell(getIndex(TinkoffXlsColumns.CATEGORY, headRow)).getStringCellValue());
+                tinkoffRow.setCategory(TinkoffCategory.getCategory(row.getCell(getIndex(TinkoffXlsColumns.CATEGORY, headRow)).getStringCellValue()));
                 tinkoffRow.setMcc( (int) (row.getCell(getIndex(TinkoffXlsColumns.MCC, headRow)).getNumericCellValue()));
                 tinkoffRow.setDescription(row.getCell(getIndex(TinkoffXlsColumns.DESCRIPTION, headRow)).getStringCellValue());
                 tinkoffRow.setBonusWithCashback(row.getCell(getIndex(TinkoffXlsColumns.BONUS_WITH_CASH_BACK, headRow)).getNumericCellValue());

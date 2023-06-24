@@ -33,7 +33,10 @@ public class OperationController {
 
     @PostMapping
     public ResponseEntity<OperationDTO> save(@RequestBody OperationDTO operationDTO) {
-        return ResponseEntity.ok(operationMapper.toDTO(operationService.save(operationMapper.toEntity(operationDTO))));
+        Operation operation = operationMapper.toEntity(operationDTO);
+        Operation save = operationService.save(operation);
+        OperationDTO body = operationMapper.toDTO(save);
+        return ResponseEntity.ok(body);
     }
 
     @PostMapping("/file")
