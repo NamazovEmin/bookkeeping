@@ -2,11 +2,11 @@ package az.namazov.bookkeeping.controller.parser;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,11 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class TinkoffXlsParser implements XlsParser {
-
-    private final SimpleDateFormat paymentDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-    private final SimpleDateFormat operationDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-
-
 
     @Override
     public TinkoffXlsBook fromXls(MultipartFile file){
@@ -44,17 +39,17 @@ public class TinkoffXlsParser implements XlsParser {
             HSSFRow row = worksheet.getRow(i);
             TinkoffXlsRow tinkoffRow = new TinkoffXlsRow();
             try {
-                tinkoffRow.setOperationDate(operationDateFormat.parse(row.getCell(getIndex(TinkoffXlsColumns.OPERATION_DATE, headRow)).getStringCellValue()));
-                tinkoffRow.setPaymentDate(paymentDateFormat.parse(row.getCell(getIndex(TinkoffXlsColumns.PAYMENT_DATE, headRow)).getStringCellValue()));
-                tinkoffRow.setCardNumber(Integer.parseInt(row.getCell(getIndex(TinkoffXlsColumns.CARD_NUMBER, headRow)).getStringCellValue().replace("*", "")));
+                tinkoffRow.setOperationDate(row.getCell(getIndex(TinkoffXlsColumns.OPERATION_DATE, headRow)).getStringCellValue());
+                tinkoffRow.setPaymentDate(row.getCell(getIndex(TinkoffXlsColumns.PAYMENT_DATE, headRow)).getStringCellValue());
+                tinkoffRow.setCardNumber(row.getCell(getIndex(TinkoffXlsColumns.CARD_NUMBER, headRow), Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue());
                 tinkoffRow.setStatus(row.getCell(getIndex(TinkoffXlsColumns.STATUS, headRow)).getStringCellValue());
                 tinkoffRow.setOperationSum(row.getCell(getIndex(TinkoffXlsColumns.OPERATION_SUM, headRow)).getNumericCellValue());
                 tinkoffRow.setOperationCurrency(row.getCell(getIndex(TinkoffXlsColumns.OPERATION_CURRENCY, headRow)).getStringCellValue());
                 tinkoffRow.setPaymentSum(row.getCell(getIndex(TinkoffXlsColumns.PAYMENT_SUM, headRow)).getNumericCellValue());
                 tinkoffRow.setPaymentCurrency(row.getCell(getIndex(TinkoffXlsColumns.PAYMENT_CURRENCY, headRow)).getStringCellValue());
-                tinkoffRow.setCashBack(row.getCell(getIndex(TinkoffXlsColumns.CASH_BACK, headRow)).getNumericCellValue());
+                tinkoffRow.setCashBack(row.getCell(getIndex(TinkoffXlsColumns.CASH_BACK, headRow), Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getNumericCellValue());
                 tinkoffRow.setCategory(TinkoffCategory.getCategory(row.getCell(getIndex(TinkoffXlsColumns.CATEGORY, headRow)).getStringCellValue()));
-                tinkoffRow.setMcc( (int) (row.getCell(getIndex(TinkoffXlsColumns.MCC, headRow)).getNumericCellValue()));
+                tinkoffRow.setMcc(row.getCell(getIndex(TinkoffXlsColumns.MCC, headRow), Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getNumericCellValue());
                 tinkoffRow.setDescription(row.getCell(getIndex(TinkoffXlsColumns.DESCRIPTION, headRow)).getStringCellValue());
                 tinkoffRow.setBonusWithCashback(row.getCell(getIndex(TinkoffXlsColumns.BONUS_WITH_CASH_BACK, headRow)).getNumericCellValue());
                 tinkoffRow.setRoundingOnInvestmentAccount(row.getCell(getIndex(TinkoffXlsColumns.ROUNDING_ON_INVESTMENT_ACCOUNT, headRow)).getNumericCellValue());

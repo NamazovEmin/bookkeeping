@@ -41,13 +41,26 @@ public enum TinkoffCategory {
     SPORTING_GOODS(Map.of("Спорттовары", List.of(5941, 5655, 5940))),
     SOUVENIRS(Map.of("Сувениры", List.of(5947))),
     TRANSPORT(Map.of("Транспорт", List.of(4111, 4121, 4131, 4457, 4468, 4784, 4789, 5013, 5271, 5551, 5561, 5592, 5598, 5599, 7511, 7523))),
-    FAST_FOOD(Map.of("Фаст Фуд", List.of(5814))),
+    FAST_FOOD(Map.of("Фастфуд", List.of(5814))),
     FUEL(Map.of("Топливо", List.of(5172, 5541, 5542, 5983))),
     SUPER_MARKET(Map.of("Супермаркеты", List.of(5715, 5451, 5462, 5412, 5422, 5441, 5297, 5298, 5411, 5921, 5499, 5300))),
     DUTY_FREE(Map.of("Duty Free", List.of(5309))),
     DIGITAL_GOODS(Map.of("Цифровые товары", List.of(5818))),
     VARIOUS_GOODS(Map.of("Различные товары", List.of(5331))),
     SERVICE(Map.of("Сервис", List.of(5964))),
+    MOBILE_CONNECTION(Map.of("Мобильная связь", List.of())),
+    REPLENISHMENT(Map.of("Пополнения", List.of())),
+    PERCENT(Map.of("Проценты", List.of())),
+    HOME_AND_REPAIR(Map.of("Дом и ремонт", List.of())),
+    TRANSFER(Map.of("Переводы", List.of())),
+    BONUS(Map.of("Бонусы", List.of())),
+    ANOTHER(Map.of("Другое", List.of())),
+    GKH(Map.of("ЖКХ", List.of())),
+    ONLINE_CINEMA(Map.of("Онлайн-кинотеатры", List.of())),
+    CLOSES_AND_SHOES(Map.of("Одежда и обувь", List.of())),
+    REFILLS(Map.of("Пополнения", List.of())),
+    BANK_SERVICE(Map.of("Услуги банка", List.of())),
+    MEDICINE(Map.of("Медицина", List.of())),
     FLOWERS(Map.of("Цветы", List.of(5193, 5992)));
 
 
@@ -58,6 +71,6 @@ public enum TinkoffCategory {
         return Arrays.stream(TinkoffCategory.values())
                 .filter(i -> i.getMccMap().containsKey(category))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No current category in TinkoffCategoryEnum"));
+                .orElseThrow(() -> new IllegalArgumentException("No current category in TinkoffCategoryEnum " + category));
     }
 }

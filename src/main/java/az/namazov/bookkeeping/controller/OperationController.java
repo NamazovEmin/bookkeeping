@@ -3,6 +3,7 @@ package az.namazov.bookkeeping.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import az.namazov.bookkeeping.controller.parser.XlsParser;
 import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsBook;
+import az.namazov.bookkeeping.data.Range;
 import az.namazov.bookkeeping.dto.OperationDTO;
 import az.namazov.bookkeeping.entity.Operation;
 import az.namazov.bookkeeping.mapper.dto.OperationMapper;
@@ -34,17 +36,22 @@ public class OperationController {
     @PostMapping
     public ResponseEntity<OperationDTO> save(@RequestBody OperationDTO operationDTO) {
         Operation operation = operationMapper.toEntity(operationDTO);
-        Operation save = operationService.save(operation);
-        OperationDTO body = operationMapper.toDTO(save);
-        return ResponseEntity.ok(body);
+        Operation savedOperation = operationService.save(operation);
+        OperationDTO savedOperationDTO = operationMapper.toDTO(savedOperation);
+        return ResponseEntity.ok(savedOperationDTO);
     }
 
     @PostMapping("/file")
-    public void mapReapExcelDataToDB(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<List<Operation>> mapReapExcelDataToDB(@RequestParam("file") MultipartFile file) {
         TinkoffXlsBook book = tinkofXlsParser.fromXls(file);
         XlsMapper xlsMapper = xlsMapperFabric.getXlsMapper(book);
         List<Operation> operations = xlsMapper.toOperationList(book);
-        operationService.saveAll(operations);
+        List<Operation> savedOperationList = operationService.saveAll(operations);
+        return ResponseEntity.ok(savedOperationList);
+    }
 
+    @GetMapping("/range")
+    public ResponseEntity<List<Operation>> getOperationsByDateRange(@RequestBody Range range) {
+        return ResponseEntity.ok(operationService.getByRange(range));
     }
 }
