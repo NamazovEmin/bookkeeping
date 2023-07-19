@@ -5,6 +5,8 @@
 
 package az.namazov.bookkeeping.mapper.dto;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -17,4 +19,6 @@ public interface OperationMapper {
     Operation toEntity(OperationDTO operationDTO);
 
     OperationDTO toDTO(Operation operation);
+
+    List<OperationDTO> toDTO(List<Operation> operationList);
 }

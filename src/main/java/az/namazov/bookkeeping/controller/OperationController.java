@@ -42,16 +42,19 @@ public class OperationController {
     }
 
     @PostMapping("/file")
-    public ResponseEntity<List<Operation>> mapReapExcelDataToDB(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<List<OperationDTO>> mapReapExcelDataToDB(@RequestParam("file") MultipartFile file) {
         TinkoffXlsBook book = tinkofXlsParser.fromXls(file);
         XlsMapper xlsMapper = xlsMapperFabric.getXlsMapper(book);
         List<Operation> operations = xlsMapper.toOperationList(book);
         List<Operation> savedOperationList = operationService.saveAll(operations);
-        return ResponseEntity.ok(savedOperationList);
+        List<OperationDTO> operationDTOList = operationMapper.toDTO(savedOperationList);
+        return ResponseEntity.ok(operationDTOList);
     }
 
     @GetMapping("/range")
-    public ResponseEntity<List<Operation>> getOperationsByDateRange(@RequestBody Range range) {
-        return ResponseEntity.ok(operationService.getByRange(range));
+    public ResponseEntity<List<OperationDTO>> getOperationsByDateRange(@RequestBody Range range) {
+        List<Operation> operationByRange = operationService.getByRange(range);
+        List<OperationDTO> operationDTOList = operationMapper.toDTO(operationByRange);
+        return ResponseEntity.ok(operationDTOList);
     }
 }

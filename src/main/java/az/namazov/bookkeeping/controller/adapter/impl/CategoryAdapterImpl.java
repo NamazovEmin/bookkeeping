@@ -1,4 +1,9 @@
-package az.namazov.bookkeeping.controller.enums;
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+package az.namazov.bookkeeping.controller.adapter.impl;
 
 import java.util.Arrays;
 
@@ -6,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import az.namazov.bookkeeping.controller.adapter.CategoryAdapter;
 import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsRow;
+import az.namazov.bookkeeping.enums.operation.Category;
 
 @Component
 public class CategoryAdapterImpl implements CategoryAdapter {

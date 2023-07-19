@@ -19,4 +19,10 @@ angular.module('bookkeeping', ['ngStorage']).controller('indexController', funct
         operation.details = null;
         operation.category = null;
     }
+
+    $scope.getOperationByRange = function(range) {
+        $http.get('http://localhost:8080/operation/range', range)
+                .then(function() {
+                });
+    }
 });

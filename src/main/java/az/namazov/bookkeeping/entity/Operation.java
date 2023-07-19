@@ -7,8 +7,8 @@ package az.namazov.bookkeeping.entity;
 
 import java.util.Date;
 
-import az.namazov.bookkeeping.controller.enums.Category;
-import az.namazov.bookkeeping.controller.enums.Source;
+import az.namazov.bookkeeping.enums.operation.Category;
+import az.namazov.bookkeeping.enums.operation.Source;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

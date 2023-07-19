@@ -1,8 +1,19 @@
-package az.namazov.bookkeeping.controller.enums;
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+/*
+ * Copyright (c) 2023, TopS BI LLC. All rights reserved.
+ * http://www.topsbi.ru
+ */
+
+package az.namazov.bookkeeping.enums.operation;
 
 import java.util.List;
 import java.util.Map;
 
+import az.namazov.bookkeeping.enums.bank.tinkoff.TinkoffCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

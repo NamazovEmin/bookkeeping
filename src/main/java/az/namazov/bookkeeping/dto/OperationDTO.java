@@ -2,8 +2,8 @@ package az.namazov.bookkeeping.dto;
 
 import java.util.Date;
 
-import az.namazov.bookkeeping.controller.enums.Category;
-import az.namazov.bookkeeping.controller.enums.Source;
+import az.namazov.bookkeeping.enums.operation.Category;
+import az.namazov.bookkeeping.enums.operation.Source;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

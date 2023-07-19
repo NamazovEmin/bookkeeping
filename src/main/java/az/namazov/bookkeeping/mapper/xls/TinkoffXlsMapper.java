@@ -8,10 +8,10 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import az.namazov.bookkeeping.controller.adapter.CategoryAdapter;
-import az.namazov.bookkeeping.controller.enums.Source;
 import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsBook;
 import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsRow;
 import az.namazov.bookkeeping.entity.Operation;
+import az.namazov.bookkeeping.enums.operation.Source;
 import az.namazov.bookkeeping.exception.IllegalArgumentException;
 import lombok.AllArgsConstructor;
 

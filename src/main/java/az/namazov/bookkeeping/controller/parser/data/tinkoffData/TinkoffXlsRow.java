@@ -1,6 +1,6 @@
 package az.namazov.bookkeeping.controller.parser.data.tinkoffData;
 
-import az.namazov.bookkeeping.controller.enums.TinkoffCategory;
+import az.namazov.bookkeeping.enums.bank.tinkoff.TinkoffCategory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

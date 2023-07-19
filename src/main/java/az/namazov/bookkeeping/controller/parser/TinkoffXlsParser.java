@@ -10,10 +10,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import az.namazov.bookkeeping.controller.enums.TinkoffCategory;
-import az.namazov.bookkeeping.controller.enums.TinkoffXlsColumns;
 import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsBook;
 import az.namazov.bookkeeping.controller.parser.data.tinkoffData.TinkoffXlsRow;
+import az.namazov.bookkeeping.enums.bank.tinkoff.TinkoffCategory;
+import az.namazov.bookkeeping.enums.bank.tinkoff.xls.TinkoffXlsColumns;
 import az.namazov.bookkeeping.exception.IllegalArgumentException;
 import lombok.extern.slf4j.Slf4j;
 
