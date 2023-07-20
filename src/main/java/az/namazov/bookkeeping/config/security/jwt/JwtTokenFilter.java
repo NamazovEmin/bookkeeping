@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2023, TopS BI LLC. All rights reserved.
- * http://www.topsbi.ru
- */
-
 package az.namazov.bookkeeping.config.security.jwt;
 
 import java.io.IOException;

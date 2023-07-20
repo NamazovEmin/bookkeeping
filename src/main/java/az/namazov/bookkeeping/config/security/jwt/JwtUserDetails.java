@@ -1,13 +1,3 @@
-/*
- * Copyright (c) 2023, TopS BI LLC. All rights reserved.
- * http://www.topsbi.ru
- */
-
-/*
- * Copyright (c) 2023, TopS BI LLC. All rights reserved.
- * http://www.topsbi.ru
- */
-
 package az.namazov.bookkeeping.config.security.jwt;
 
 import java.util.Collection;
@@ -18,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class JwtUser implements UserDetails {
+public class JwtUserDetails implements UserDetails {
 
     private final Long id;
     private final String username;
@@ -30,7 +20,7 @@ public class JwtUser implements UserDetails {
     private final Date lastPasswordResetDate;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public JwtUser(
+    public JwtUserDetails(
             Long id,
             String username,
             String firstName,
