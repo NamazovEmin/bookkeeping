@@ -3,6 +3,8 @@ package az.namazov.bookkeeping.config.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -10,19 +12,26 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import az.namazov.bookkeeping.config.security.jwt.JwtConfigurer;
 import az.namazov.bookkeeping.config.security.jwt.JwtTokenProvider;
+import az.namazov.bookkeeping.config.security.jwt.JwtUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final CustomAuthenticationProvider customAuthenticationProvider;
+    private final JwtUserDetailsService jwtUserDetailsService;
 
-    private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
-    private static final String LOGIN_ENDPOINT = "/api/v1/auth/login";
+    private static final String ADMIN_ENDPOINT = "/admin/**";
+    private static final String LOGIN_ENDPOINT = "/login";
 
 
-    public SecurityConfig(@Autowired JwtTokenProvider jwtTokenProvider) {
+    public SecurityConfig(@Autowired JwtTokenProvider jwtTokenProvider,
+            @Autowired CustomAuthenticationProvider customAuthenticationProvider,
+            @Autowired JwtUserDetailsService jwtUserDetailsService) {
         this.jwtTokenProvider = jwtTokenProvider;
+        this.customAuthenticationProvider = customAuthenticationProvider;
+        this.jwtUserDetailsService = jwtUserDetailsService;
     }
 
     @Bean
@@ -35,5 +44,14 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
                 .apply(new JwtConfigurer(jwtTokenProvider));
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider);
+        authenticationManagerBuilder.userDetailsService(jwtUserDetailsService);
+        return authenticationManagerBuilder.build();
     }
 }
