@@ -13,11 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class Starter {
+public class StarterBD {
 
     private final RoleRepository roleRepository;
     private final UserService userService;
-    public Starter(RoleRepository roleRepository, UserService userService) {
+    public StarterBD(RoleRepository roleRepository, UserService userService) {
         this.roleRepository = roleRepository;
         this.userService = userService;
         addRole();
