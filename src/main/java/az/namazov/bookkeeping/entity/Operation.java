@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2023, TopS BI LLC. All rights reserved.
- * http://www.topsbi.ru
- */
-
 package az.namazov.bookkeeping.entity;
 
 import java.util.Date;

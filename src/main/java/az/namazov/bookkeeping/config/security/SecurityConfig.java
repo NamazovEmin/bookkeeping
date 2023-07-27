@@ -7,10 +7,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
-import az.namazov.bookkeeping.config.security.jwt.JwtConfigurer;
 import az.namazov.bookkeeping.config.security.jwt.JwtTokenProvider;
 import az.namazov.bookkeeping.config.security.jwt.JwtUserDetailsService;
 
@@ -23,7 +23,7 @@ public class SecurityConfig {
     private final JwtUserDetailsService jwtUserDetailsService;
 
     private static final String ADMIN_ENDPOINT = "/admin/**";
-    private static final String LOGIN_ENDPOINT = "/login";
+    private static final String LOGIN_ENDPOINT = "/v1/login";
 
 
     public SecurityConfig(@Autowired JwtTokenProvider jwtTokenProvider,
@@ -36,22 +36,26 @@ public class SecurityConfig {
 
     @Bean
     protected SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-        http
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(LOGIN_ENDPOINT).permitAll()
-                        .requestMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
-                        .anyRequest().authenticated())
-                .apply(new JwtConfigurer(jwtTokenProvider));
+        http.csrf(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+//                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers(LOGIN_ENDPOINT).permitAll()
+//                        .requestMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
+//                        .anyRequest().authenticated())
+//                .apply(new JwtConfigurer(jwtTokenProvider));
         return http.build();
     }
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder =
-                http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider);
-        authenticationManagerBuilder.userDetailsService(jwtUserDetailsService);
-        return authenticationManagerBuilder.build();
+//        AuthenticationManagerBuilder authenticationManagerBuilder =
+//                http.getSharedObject(AuthenticationManagerBuilder.class);
+//        authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider);
+//        authenticationManagerBuilder.userDetailsService(jwtUserDetailsService);
+//        return authenticationManagerBuilder.build();
+        return  http.getSharedObject(AuthenticationManagerBuilder.class).build();
     }
 }

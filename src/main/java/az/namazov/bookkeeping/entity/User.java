@@ -1,7 +1,5 @@
 package az.namazov.bookkeeping.entity;
 
-
-
 import java.util.List;
 
 import jakarta.persistence.Column;

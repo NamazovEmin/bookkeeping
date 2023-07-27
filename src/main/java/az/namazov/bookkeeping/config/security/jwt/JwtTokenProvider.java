@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import az.namazov.bookkeeping.entity.Role;
+import az.namazov.bookkeeping.entity.User;
 import az.namazov.bookkeeping.exception.JwtAuthenticationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -43,10 +44,10 @@ public class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(String username, List<Role> roles) {
+    public String createToken(User user) {
 
-        Claims claims = Jwts.claims().setSubject(username);
-        claims.put("roles", getRoleNames(roles));
+        Claims claims = Jwts.claims().setSubject(user.getUserName());
+        claims.put("roles", getRoleNames(user.getRoles()));
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);

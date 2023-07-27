@@ -1,3 +1,7 @@
+server:
+  port: 8075
+
+
 spring:
   h2:
     console.enabled: true
@@ -17,6 +21,10 @@ jwt:
   token:
     secret: jwtappdemo
     expired: 3600000
+
+#logging:
+#  level:
+#    org.springframework.security : TRACE
 
 
 
