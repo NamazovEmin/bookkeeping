@@ -10,7 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import az.namazov.bookkeeping.config.security.jwt.JwtTokenFilter;
 import az.namazov.bookkeeping.config.security.jwt.JwtTokenProvider;
 import az.namazov.bookkeeping.config.security.jwt.JwtUserDetailsService;
 
@@ -40,6 +42,11 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.addFilterBefore(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+        http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers(LOGIN_ENDPOINT).permitAll()
+                        .requestMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
+                        .anyRequest().authenticated());
 //                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
 //                .authorizeHttpRequests(auth -> auth
 //                        .requestMatchers(LOGIN_ENDPOINT).permitAll()
